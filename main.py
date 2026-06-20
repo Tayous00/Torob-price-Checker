@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from win10toast import ToastNotifier
+from plyer import notification
 import csv
 from datetime import datetime
 import time
@@ -26,12 +26,11 @@ class TorobPriceChecker:
 
 
     def notification(msg):
-        toast = ToastNotifier()
 
-        toast.show_toast(
+        notification.notify(
             "Torob Price Alert",
-            msg,
-            duration=5
+            message=msg,
+            timeout=5
         )
 
 
@@ -93,12 +92,10 @@ while True:
         TorobPriceChecker.save_price(current_price)
         TorobPriceChecker.save_history(current_price)
 
-        print("Wait For One Hour")
-        time.sleep(3600)
     except Exception as e:
         print(f"Error is: {e}")
-        print("Wait For One Hour")
-        time.sleep(3600)
+        
 
     finally:
-        drive.quit()
+        print("Wait For One Hour")
+        time.sleep(3600)
